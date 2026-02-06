@@ -62,7 +62,7 @@ __interrupt void PORT1_ISR(void)
         P1IE  &= ~BIT1;         // 先關中斷避免彈跳重入
         
         P1_0_Switch(1);
-        P2_0_Switch(1);
+        P2_0_Switch(0);
 
         // 重新設定下降緣（避免鬆開的上升緣誤觸）
         P1IES  |=  BIT1;        // 高->低
@@ -82,6 +82,11 @@ int main(void)
     gpio_output_init();         // P1.0 P2.0 Outout
     gpio_input_init();          // P1.1 按鈕 input
 
+
+    P1_0_Switch(0);
+    P2_0_Switch(1);   
+
+        
     __enable_interrupt();      // 全域中斷
 
     while(1){
